@@ -5,10 +5,11 @@ import axios from "axios";
 import { type Movie } from "../types/movie";
 interface AppGetResults{
   results: Movie[]
+  total_pages: number;
 }
 
 export default async function fetchMovies(queryUser: string): Promise<Movie[]>{
-
+    let page = 1;
     
     const mykey = import.meta.env.VITE_TMDB_TOKEN
     
@@ -25,6 +26,7 @@ export default async function fetchMovies(queryUser: string): Promise<Movie[]>{
                         include_adult: false,
                         language: 'en-US',
                         query: queryUser,
+                        page: page
     
     
                     },
