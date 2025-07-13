@@ -8,8 +8,8 @@ interface AppGetResults{
   total_pages: number;
 }
 
-export default async function fetchMovies(queryUser: string): Promise<Movie[]>{
-    let page = 1;
+export  const fetchMovies = async (queryUser: string, page: number) =>{
+    
     
     const mykey = import.meta.env.VITE_TMDB_TOKEN
     
@@ -26,7 +26,7 @@ export default async function fetchMovies(queryUser: string): Promise<Movie[]>{
                         include_adult: false,
                         language: 'en-US',
                         query: queryUser,
-                        page: page
+                        page: page,
     
     
                     },
@@ -40,7 +40,7 @@ export default async function fetchMovies(queryUser: string): Promise<Movie[]>{
             );
             
             
-            return response.data.results;
+            return response.data;
               
             
 
