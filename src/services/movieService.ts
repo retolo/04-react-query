@@ -8,7 +8,7 @@ interface AppGetResults{
   total_pages: number;
 }
 
-export  const fetchMovies = async (queryUser: string, page: number) =>{
+export  const fetchMovies = async (queryUser: string, page: number): Promise<AppGetResults> =>{
     
     
     const mykey = import.meta.env.VITE_TMDB_TOKEN

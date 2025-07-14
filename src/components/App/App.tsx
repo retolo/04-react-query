@@ -14,12 +14,12 @@ import ReactPaginate from "../ReactPaginate/ReactPagination";
 
 export default function App(){
 
-    const [movies, setMovies] = useState<Movie[]>([]);
+    
     const [querys, setQuerys] = useState<string>('');
 
     const [currentPage, setCurrentPage] = useState(1);
     
-  const {data, error, isLoading, isError} = useQuery({
+  const {data, error, isLoading, isError, isSuccess, isPending} = useQuery({
     queryKey: ['movies', querys, currentPage],
     queryFn: () => fetchMovies(querys, currentPage),
     enabled: querys !== '',
@@ -27,18 +27,16 @@ export default function App(){
   })
 
   const totalPages = data?.total_pages ?? 0;
+
+  
   
 
   useEffect(() =>{
-    setMovies([]);
+    
     if(data?.results.length === 0){
       toast('No movies found for your request.');
     }
-    else if(data !== undefined){
-      
-      setMovies(data.results);
-      
-    }
+   
 
 
   }, [data])
@@ -58,20 +56,23 @@ export default function App(){
 
     return (
         <>
-          <SearchBar onSubmit={setQuerys} />
+          <SearchBar onSubmit={(querys, page) =>{
+            setQuerys(querys);
+            setCurrentPage(page);
+          }} />
           <Toaster />
       
           {isError ? (
             <ErrorMessage error={error.message}/>
-          ) : isLoading ? (
+          ) :isLoading && isPending ? (
             <Loader />
           ) : (
             <>
-              {movies.length > 0 && (
+              {isSuccess && (
                 <>
                 
-                <MovieGrid onSelect={handleMovieSelect} movies={movies} />
-                <ReactPaginate currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage}/>
+                <MovieGrid onSelect={handleMovieSelect} movies={data?.results} />
+                <ReactPaginate forcePage={currentPage} pageCount={totalPages} onPageChange={setCurrentPage}/>
                 
                 
                 </>
