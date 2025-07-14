@@ -1,11 +1,12 @@
 interface SearchBarProps{
-    onSubmit: (queryPer: string, page: number) => void;
+    onSubmit: (queryPer: string) => void;
+    setPage: (page: number) => void;
 }
-import toast, { Toaster } from 'react-hot-toast';
+
 import styles from './SearchBar.module.css'
 const page = 1;
-
-export default function SearchBar({onSubmit}: SearchBarProps){
+import toast, { Toaster } from 'react-hot-toast';
+export default function SearchBar({onSubmit, setPage}: SearchBarProps){
 
 
 
@@ -16,7 +17,10 @@ export default function SearchBar({onSubmit}: SearchBarProps){
             return;
         }
         
-        onSubmit(String(inputValue), page);
+        onSubmit(String(inputValue));
+        setPage(page);
+        
+        
         
         
         
@@ -55,11 +59,12 @@ export default function SearchBar({onSubmit}: SearchBarProps){
          
          />
          <button  className={styles.button} type="submit">
-        <Toaster/>
+        
          Search
          </button>
          </form>
          </div>
+         <Toaster />
         </header>
 
     )

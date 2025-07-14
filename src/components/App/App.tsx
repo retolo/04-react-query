@@ -16,6 +16,7 @@ export default function App(){
 
     
     const [querys, setQuerys] = useState<string>('');
+    
 
     const [currentPage, setCurrentPage] = useState(1);
     
@@ -36,10 +37,11 @@ export default function App(){
     if(data?.results.length === 0){
       toast('No movies found for your request.');
     }
+    
    
 
 
-  }, [data])
+  }, [data, querys])
     
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
 
@@ -56,11 +58,8 @@ export default function App(){
 
     return (
         <>
-          <SearchBar onSubmit={(querys, page) =>{
-            setQuerys(querys);
-            setCurrentPage(page);
-          }} />
-          <Toaster />
+          <SearchBar onSubmit={setQuerys} setPage={setCurrentPage}/>
+          
       
           {isError ? (
             <ErrorMessage error={error.message}/>
@@ -83,6 +82,7 @@ export default function App(){
               )}
             </>
           )}
+          <Toaster />
         </>
       );
       
