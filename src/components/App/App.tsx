@@ -55,10 +55,18 @@ export default function App(){
         
         setSelectedMovie(null);
     }
+    const handlePages = (newQuery: string) =>{
+        setQuerys(newQuery);
+        setCurrentPage(1);
+        
+        
+        
+    }
+    
 
     return (
         <>
-          <SearchBar onSubmit={setQuerys} setPage={setCurrentPage}/>
+          <SearchBar onSubmit={handlePages}/>
           
       
           {isError ? (

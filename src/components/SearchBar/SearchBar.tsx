@@ -1,12 +1,12 @@
+import styles from './SearchBar.module.css'
+import toast, { Toaster } from 'react-hot-toast';
+
 interface SearchBarProps{
-    onSubmit: (queryPer: string) => void;
-    setPage: (page: number) => void;
+    onSubmit: (query: string) => void;
+    
 }
 
-import styles from './SearchBar.module.css'
-const page = 1;
-import toast, { Toaster } from 'react-hot-toast';
-export default function SearchBar({onSubmit, setPage}: SearchBarProps){
+export default function SearchBar({onSubmit}: SearchBarProps){
 
 
 
@@ -18,24 +18,8 @@ export default function SearchBar({onSubmit, setPage}: SearchBarProps){
         }
         
         onSubmit(String(inputValue));
-        setPage(page);
-        
-        
-        
-        
-        
     }
 
-
-    
-    
-    
-
-
-        
-        
-
-    
     return(
         <header className={styles.header}>
          <div className={styles.container}>
