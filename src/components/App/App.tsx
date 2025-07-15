@@ -78,8 +78,13 @@ export default function App(){
               {isSuccess && (
                 <>
                 
+                {data?.results.length > 0 &&
+                
                 <MovieGrid onSelect={handleMovieSelect} movies={data?.results} />
+                }
+                {totalPages > 1 &&
                 <ReactPaginate forcePage={currentPage} pageCount={totalPages} onPageChange={setCurrentPage}/>
+                }
                 
                 
                 </>
